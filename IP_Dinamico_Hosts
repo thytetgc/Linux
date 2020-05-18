@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Obter o IP de um domínio
+arquivo=/etc/hosts
+dominio=DINAMICO.com.br
+
+# Variavel ip recebe o retorno do dig
+ip=$(dig +short ${dominio} @8.8.8.8)
+
+# Testa se variável ip não esta vazia
+if [ -z "${ip}" ]; then
+
+#Se for nula, avisa o usuario que algo esta errado
+        echo -e "O endereço informado: ${dominio} não existe ou esta incorreto! \n "
+else
+
+#Não sendo nula, imprime o valor de $ip
+        sed -i '/'$dominio'/d' $arquivo
+        echo "${ip}     ${dominio}" >> $arquivo
+fi
