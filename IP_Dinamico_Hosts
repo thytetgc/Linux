@@ -14,7 +14,11 @@ if [ -z "${ip}" ]; then
         echo -e "O endereço informado: ${dominio} não existe ou esta incorreto! \n "
 else
 
-#Não sendo nula, imprime o valor de $ip
+#Não sendo nula, grava o IP no hosts
         sed -i '/'$dominio'/d' $arquivo
         echo "${ip}     ${dominio}" >> $arquivo
+
+#Imprime o valor do IP da tela
+#        echo -e "O IP desse site é: \n  ${ip} \n"
+
 fi
