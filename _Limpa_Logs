@@ -16,3 +16,4 @@ done
 
 echo "Removendo arquivos de backup de logs com mais de 3 dias de criação"
 find /tmp/var/ -name “*.tar.gz” -ctime +3 -exec rm -rf {} \;
+	echo "+-------------------------------------------------+OK"
