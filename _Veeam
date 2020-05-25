@@ -1,0 +1,4 @@
+#!/bin/bash
+clear
+
+veeamconfig session list |grep "$(date "+%Y-")">&1 | /usr/bin/mail -r root -s "Veeam "`hostname`"" thiago@hostlp.net
