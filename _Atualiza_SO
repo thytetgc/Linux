@@ -2,8 +2,8 @@
 clear
 
 echo "Atualizando tudo"
-killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock
-killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock
+killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock ; rm -rf /var/lib/apt/lists/* ; rm -rf /var/lib/apt/lists/partial/*
+killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock ; rm -rf /var/lib/apt/lists/* ; rm -rf /var/lib/apt/lists/partial/*
 dpkg --configure -a
 
 apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y && dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge && apt-get autoremove -y
