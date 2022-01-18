@@ -1,10 +1,14 @@
 #!/bin/bash
 clear
 
-echo "Atualizando tudo"
-killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock ; rm -rf /var/lib/apt/lists/* ; rm -rf /var/lib/apt/lists/partial/*
-killall dpkg ; rm -rf /var/cache/apt/archives/lock ; rm -rf /var/lib/apt/lists/lock ; rm -rf /var/lib/apt/lists/* ; rm -rf /var/lib/apt/lists/partial/*
+echo "Removendo sujeiras"
+apt clean 1&> /dev/null
+apt-get clean 1&> /dev/null
+killall dpkg 1&> /dev/null
+rm -rf /var/cache/apt/archives/lock 1&> /dev/null
+rm -rf /var/lib/apt/lists/* 1&> /dev/null
 dpkg --configure -a
 
+echo "Atualizando tudo"
 apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y && dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge && apt-get autoremove -y
          echo "+-------------------------------------------------+OK"
