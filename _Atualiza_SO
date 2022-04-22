@@ -1,14 +1,29 @@
 #!/bin/bash
 clear
 
-echo "Removendo sujeiras"
+echo "Removendo Sujeiras..."
 apt clean 1&> /dev/null
 apt-get clean 1&> /dev/null
 killall dpkg 1&> /dev/null
 rm -rf /var/cache/apt/archives/lock 1&> /dev/null
 rm -rf /var/lib/apt/lists/* 1&> /dev/null
 dpkg --configure -a
-
-echo "Atualizando tudo"
-apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y && dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge && apt-get autoremove -y
          echo "+-------------------------------------------------+OK"
+
+echo "Atualizando S.O..."
+apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y && dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge && apt-get autoremove -y
+apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y && sudo apt-get -y purge && apt-get autoremove -y
+         echo "+-------------------------------------------------+OK"
+         
+echo "Atualizando Grub..."
+for disk in sd{a,b,c} ; do grub-install /dev/$disk ; done 1&> /dev/null
+for disk in sd{a,b,c} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+
+for disk in nvme{0n1,1n1} ; do grub-install /dev/$disk ; done 1&> /dev/null
+for disk in nvme{0n1,1n1} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+
+for disk in md{0,2,127} ; do grub-install /dev/$disk ; done 1&> /dev/null
+for disk in md{0,2,127} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+update-grub
+         echo "+-------------------------------------------------+OK"
+
