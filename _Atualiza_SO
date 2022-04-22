@@ -16,14 +16,14 @@ apt-get clean && apt-get autoclean && apt-get update && apt-get dist-upgrade -y 
          echo "+-------------------------------------------------+OK"
          
 echo "Atualizando Grub..."
-for disk in sd{a,b,c} ; do grub-install /dev/$disk ; done 1&> /dev/null
-for disk in sd{a,b,c} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+for disk in sd{a,b,c} ; do grub-install /dev/$disk ; done
+for disk in sd{a,b,c} ; do grub-install --recheck /dev/$disk ; done
 
-for disk in nvme{0n1,1n1} ; do grub-install /dev/$disk ; done 1&> /dev/null
-for disk in nvme{0n1,1n1} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+for disk in nvme{0n1,1n1} ; do grub-install /dev/$disk ; done
+for disk in nvme{0n1,1n1} ; do grub-install --recheck /dev/$disk ; done
 
-for disk in md{0,2,127} ; do grub-install /dev/$disk ; done 1&> /dev/null
-for disk in md{0,2,127} ; do grub-install --recheck /dev/$disk ; done 1&> /dev/null
+for disk in md{0,2,127} ; do grub-install /dev/$disk ; done
+for disk in md{0,2,127} ; do grub-install --recheck /dev/$disk ; done
 update-grub
          echo "+-------------------------------------------------+OK"
 
